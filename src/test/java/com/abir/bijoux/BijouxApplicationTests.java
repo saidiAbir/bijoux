@@ -5,15 +5,22 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import com.abir.bijoux.entities.Bijoux;
+import com.abir.bijoux.entities.Marque;
 import com.abir.bijoux.repos.BijouxRepository;
 import com.abir.bijoux.service.BijouxService;
 
 @SpringBootTest
-class BijouxApplicationTests {
+class BijouxApplicationTests implements CommandLineRunner {
+	
+	@Autowired 
+	private RepositoryRestConfiguration repositoryRestConfiguration; 
+
 
 
 	@Autowired
@@ -70,4 +77,73 @@ class BijouxApplicationTests {
 	System.out.println(b); 
 	} */ 
 	}
+	@Test
+	public void testFindBijouxByNom()
+	{
+	List<Bijoux> bijx = bijouxRepository.findByNomBijoux("bracelet"); 
+	for (Bijoux b : bijx)
+	{
+	System.out.println(b);
+	}	}
+	@Test
+	public void testFindBijouxByNomContains()
+	{
+	List<Bijoux> bijx = bijouxRepository.findByNomBijoux("d'or"); 
+	for (Bijoux b : bijx)
+	{
+	System.out.println(b);
+	}	}
+	@Test
+	public void testfindByNomPrix()
+	{
+	List<Bijoux> bijx = bijouxRepository.findByNomPrix("bracelet", 20.000);
+	for (Bijoux b : bijx)
+	{
+	System.out.println(b);
+	}
+	}
+	@Test 
+	public void testfindByMarque() 
+	{ 
+	Marque mar = new Marque(); 
+	mar.setIdMar(1L);    
+	List<Bijoux>  bijx = bijouxRepository.findByMarque(mar); 
+	for (Bijoux b : bijx) 
+	{ 
+	System.out.println(b); 
+	} 
+	}
+	@Test 
+	public void findByMarqueIdMar() 
+	{    
+	List<Bijoux>  bijx = bijouxRepository.findByMarqueIdMar(1L); 
+	for (Bijoux b : bijx) 
+	{ 
+	System.out.println(b); 
+	} 
+	} 
+	
+	@Test 
+	 public void testfindByOrderByNomBijouxAsc() 
+	  { 
+	  List<Bijoux>  bijx =bijouxRepository.findByOrderByNomBijouxAsc();   
+	   for (Bijoux b : bijx) 
+	   		{ 
+		   		System.out.println(b); 
+	   		} 
+	  } 
+	/*@Test 
+	 public void testTrierBijouxNomsPrix() 
+	  { 
+		  List<Bijoux>  bijx =bijouxRepository.trierBijouxNomsPrix();   
+		   for (Bijoux b : bijx) 
+		   		{ 
+			   		System.out.println(b); 
+		   		} 
+	  } */
+	@Override
+	public void run(String... args) throws Exception {
+		repositoryRestConfiguration.exposeIdsFor(Bijoux.class);		
+	}
+	
 }

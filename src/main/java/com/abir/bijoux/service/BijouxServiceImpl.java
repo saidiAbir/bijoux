@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.abir.bijoux.entities.Bijoux;
+import com.abir.bijoux.entities.Marque;
 import com.abir.bijoux.repos.BijouxRepository;
 @Service
 public class BijouxServiceImpl implements BijouxService{
@@ -52,5 +53,45 @@ public class BijouxServiceImpl implements BijouxService{
 		// TODO Auto-generated method stub
 		return bijouxRepository.findAll(PageRequest.of(page, size));
 	}
+
+	@Override
+	public List<Bijoux> findByNomBijoux(String nom) {
+		return bijouxRepository.findByNomBijoux(nom);
+	}
+
+	@Override
+	public List<Bijoux> findByNomBijouxContains(String nom) {
+		// TODO Auto-generated method stub
+		return bijouxRepository.findByNomBijouxContains(nom);
+	}
+
+	@Override
+	public List<Bijoux> findByNomPrix(String nom, Double prix) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Bijoux> findByMarque(Marque marque) {
+		// TODO Auto-generated method stub
+		return bijouxRepository.findByMarque(marque);
+	}
+
+	@Override
+	public List<Bijoux> findByMarqueIdCat(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Bijoux> findByOrderByNomBijouxAsc() {
+		return bijouxRepository.findByOrderByNomBijouxAsc();
+	}
+
+
+	/*@Override
+	public List<Bijoux> trierBijouxNomsPrix(){
+		return bijouxRepository.trierBijouxNomsPrix();
+	}*/
 
 }
